@@ -1,7 +1,8 @@
-use std::collections::HashSet;
+use std::{collections::HashSet, vec};
 
 use super::*;
 
+#[derive(Debug)]
 pub enum BlockValidationErr {
     MismatchedIndex,
     InvalidHash,
@@ -18,8 +19,14 @@ pub struct Blockchain {
 }
 
 impl Blockchain {
+    pub fn new() -> Self {
+        Blockchain {
+            blocks: vec![],
+            unspent_outputs: HashSet::new(),
+        }
+    }
     // Using update with blocks for txns  instead of verify
-
+    // TODO : deep dive into this
     pub fn update_with_block(&mut self, block: Block) -> Result<(), BlockValidationErr> {
         let i: usize = self.blocks.len(); //index of prev block
 

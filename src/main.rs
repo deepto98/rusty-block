@@ -3,12 +3,24 @@ use blockchainlib::*;
 fn main() {
     let difficulty = 0x000fffffffffffffffffffffffffffff; //Adding more zeroes upfront increases difficulty, hence time to mine and nonce value
 
-    let mut block = Block::new(
+    let mut genesis_block = Block::new(
         0,
         now(),
         vec![0; 32],
         0,
-        "Genesis Block".to_owned(),
+        vec![Transaction {
+            inputs: vec![],
+            outputs: vec![
+                transaction::Output {
+                    to_addr: "Deepto".to_owned(),
+                    value: 50,
+                },
+                transaction::Output {
+                    to_addr: "Abcd".to_owned(),
+                    value: 100,
+                },
+            ],
+        }],
         difficulty,
     );
 
@@ -22,40 +34,16 @@ fn main() {
     // // Genesis block
     // println!("{:?}", &block);
 
-    block.mine();
+    genesis_block.mine();
 
     // Mined genesis block
-    println!("Mined genesis block {:?}", &block);
+    println!("Mined genesis block {:?}", &genesis_block);
 
-    let mut last_hash = block.hash.clone();
+    let mut last_hash = genesis_block.hash.clone();
 
-    let mut blockchain = Blockchain {
-        blocks: vec![block],
-    };
+    let mut blockchain = Blockchain::new();
 
-    // Run Verification for block
-    println!("Verify: {}", &blockchain.verify());
-
-    // Add more blocks - creating the blockchain
-    for i in 1..=10 {
-        let mut block = Block::new(
-            i,
-            now(),
-            last_hash,
-            0,
-            "Another Block".to_owned(),
-            difficulty,
-        );
-
-        block.mine();
-
-        println!("Mined genesis block {:?}", &block);
-
-        last_hash = block.hash.clone();
-
-        blockchain.blocks.push(block);
-
-        println!("Verify: {}", &blockchain.verify());
-
-    }
+    blockchain
+        .update_with_block(genesis_block)
+        .expect("Falied to add genesis block");
 }
