@@ -1,7 +1,7 @@
 use blockchainlib::*;
 
 fn main() {
-    let difficulty = 0x00ffffffffffffffffffffffffffffff;
+    let difficulty = 0x00ffffffffffffffffffffffffffffff;//Adding more zeroes upfront increases difficulty, hence time to mine and nonce value
 
     let mut block = Block::new(0, now(), vec![0; 32], 0, "Genesis Block".to_owned(), difficulty);
 
