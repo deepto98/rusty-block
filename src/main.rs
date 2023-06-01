@@ -11,4 +11,6 @@ fn main() {
 
     //Set generated hash as hash of current block
     block.hash=h;
+
+    println!("{:?}", &block);
 }
