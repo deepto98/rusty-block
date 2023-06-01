@@ -58,7 +58,8 @@ pub fn u128_bytes(u: &u128) -> [u8; 16] {
     ]
 }
 
-// Converts difficulty into bytes 
+// Converts difficulty into bytes
+//Converts last 16 bytes of difficulty to an unsigned 128 bit int
 //TODO - understand this in detail
 pub fn difficulty_bytes_as_u128(v: &Vec<u8>) -> u128 {
     ((v[31] as u128) << 0xf * 8)

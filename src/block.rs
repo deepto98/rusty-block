@@ -46,7 +46,6 @@ impl Block {
 }
 
 impl Hashable for Block {
-
     //Hashing elements of Block
     fn bytes(&self) -> Vec<u8> {
         let mut bytes = vec![];
@@ -59,4 +58,8 @@ impl Hashable for Block {
 
         bytes // return
     }
+}
+
+pub fn check_difficulty(hash: &Blockhash, difficulty: u128) -> bool {
+      difficulty > difficulty_bytes_as_u128(&hash) //returns t/f
 }
