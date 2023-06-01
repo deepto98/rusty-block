@@ -3,6 +3,9 @@ use std::time::{SystemTime, UNIX_EPOCH};
 // Type used in block
 type Blockhash = Vec<u8>;
 
+// Type used in transaction
+type Address = String;
+
 // Current time in milliseconds
 pub fn now() -> u128 {
     let duration = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
@@ -89,3 +92,6 @@ pub use crate::hashable::Hashable;
 
 mod blockchain;
 pub use crate::blockchain::Blockchain;
+
+mod transaction;
+pub use crate::transaction::Transaction;

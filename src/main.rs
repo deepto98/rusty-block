@@ -1,7 +1,7 @@
 use blockchainlib::*;
 
 fn main() {
-    let difficulty = 0x00ffffffffffffffffffffffffffffff; //Adding more zeroes upfront increases difficulty, hence time to mine and nonce value
+    let difficulty = 0x000fffffffffffffffffffffffffffff; //Adding more zeroes upfront increases difficulty, hence time to mine and nonce value
 
     let mut block = Block::new(
         0,
@@ -33,7 +33,10 @@ fn main() {
         blocks: vec![block],
     };
 
-    // Add more blocks
+    // Run Verification for block
+    println!("Verify: {}", &blockchain.verify());
+
+    // Add more blocks - creating the blockchain
     for i in 1..=10 {
         let mut block = Block::new(
             i,
@@ -48,8 +51,11 @@ fn main() {
 
         println!("Mined genesis block {:?}", &block);
 
-        last_hash =block.hash.clone();
+        last_hash = block.hash.clone();
 
         blockchain.blocks.push(block);
+
+        println!("Verify: {}", &blockchain.verify());
+
     }
 }

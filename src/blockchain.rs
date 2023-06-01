@@ -23,7 +23,9 @@ impl Blockchain {
                 if block.timestamp <= prev_block.timestamp {
                     print!("Time didn't increase");
                     return false;
-                } else if block.prev_block_hash != prev_block.hash {
+                }
+                //Check hash mismatch
+                else if block.prev_block_hash != prev_block.hash {
                     print!("Hash mismatch");
                     return false;
                 }
