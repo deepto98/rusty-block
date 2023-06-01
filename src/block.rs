@@ -1,3 +1,5 @@
+use crate::hashable::Hashable;
+
 use super::*;
 use std::fmt::{self, Debug, Formatter};
 
@@ -12,7 +14,14 @@ pub struct Block {
 
 impl Debug for Block {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        write!(f, "Block")
+        write!(
+            f,
+            "Block[{}]:{} at: {} with: {}", //define format in which to print block
+            &self.index,
+            &hex::encode(&self.hash),
+            &self.timestamp,
+            &self.payload
+        )
     }
 }
 // Implements functions for Block
@@ -28,10 +37,14 @@ impl Block {
         Block {
             index,
             timestamp,
-            hash : vec![0;32], //repeats 0 32 times i.e. 32 bytes int
+            hash: vec![0; 32], //repeats 0 32 times i.e. 32 bytes int
             prev_block_hash,
             nonce,
             payload,
         }
     }
+}
+
+impl Hashable for Block {
+    fn bytes(&self) -> Vec<u8> {}
 }
