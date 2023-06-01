@@ -12,6 +12,29 @@ impl Blockchain {
                 println!("Index mismatch {} != {}", &block.index, &i);
                 return false;
             }
+            //2. Check difficulty
+            else if !block::check_difficulty(&block.hash(), block.difficulty) {
+                println!("Difficulty Fail");
+                return false;
+            }
+            //3. Check if time increased for non genesis block
+            else if i != 0 {
+                let prev_block = &self.blocks[i - 1];
+                if block.timestamp <= prev_block.timestamp {
+                    print!("Time didn't increase");
+                    return false;
+                } else if block.prev_block_hash != prev_block.hash {
+                    print!("Hash mismatch");
+                    return false;
+                }
+            } else
+            // Check if prev hash for genesis is all zeroes
+            {
+                if block.prev_block_hash != vec![0; 32] {
+                    println!("Genesis block's prev_block_hash is invalid");
+                    return false;
+                }
+            }
         }
         true
     }
