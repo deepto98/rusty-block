@@ -1,6 +1,6 @@
 use std::time::{ SystemTime, UNIX_EPOCH };
 
-// Current time in seconds
+// Current time in milliseconds
 pub fn now () -> u128 {
     let duration = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -10,7 +10,8 @@ pub fn now () -> u128 {
     duration.as_secs() as u128 * 1000 + duration.subsec_millis() as u128
 }
 
-// Convert 32 bit int into array of 4 8 bit ints
+// Little Endian Conversion
+// Convert 32 bit int into array of 48 bit ints
 pub fn u32_bytes (u: &u32) -> [u8; 4] {
     [
         (u >> 8 * 0x0) as u8,
@@ -20,7 +21,7 @@ pub fn u32_bytes (u: &u32) -> [u8; 4] {
     ]
 }
 
-// Convert 64 bit int into array of 8 8 bit ints
+// Convert 64 bit int into array of 8 8bit ints
 pub fn u64_bytes (u: &u64) -> [u8; 8] {
     [
         (u >> 8 * 0x0) as u8,
@@ -35,7 +36,7 @@ pub fn u64_bytes (u: &u64) -> [u8; 8] {
     ]
 }
 
-// Convert 128 bit int into array of 16 8 bit ints
+// Convert 128 bit int into array of 16 8bit ints
 pub fn u128_bytes (u: &u128) -> [u8; 16] {
     [
         (u >> 8 * 0x0) as u8,
@@ -60,3 +61,4 @@ pub fn u128_bytes (u: &u128) -> [u8; 16] {
     ]
 }
 
+//  u16::to_be_bytes
