@@ -17,7 +17,7 @@ impl Debug for Block {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         write!(
             f,
-            "Block[{}]:{} at: {} with: {} nonce:{}", //define format in which to print block
+            "Block[{}]:{} at: {} with: {} transaction(s) and nonce:{}", //define format in which to print block
             &self.index,
             &hex::encode(&self.hash),
             &self.timestamp,

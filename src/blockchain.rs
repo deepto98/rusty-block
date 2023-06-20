@@ -28,7 +28,7 @@ impl Blockchain {
     // Using update with blocks for txns  instead of verify
     // TODO : deep dive into this
     pub fn update_with_block(&mut self, block: Block) -> Result<(), BlockValidationErr> {
-        let i: usize = self.blocks.len(); //index of prev block
+        let i = self.blocks.len(); //index of prev block
 
         // 1. Check if indices match
         if block.index != i as u32 {
@@ -72,7 +72,7 @@ impl Blockchain {
 
                 // Check if any inputs arent part of unspent hashes
                 if !(&input_hashes - &self.unspent_outputs).is_empty()
-                    || (&input_hashes & &block_spent).is_empty()
+                    || !(&input_hashes & &block_spent).is_empty()
                 {
                     return Err(BlockValidationErr::InvalidInput);
                 }

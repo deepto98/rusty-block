@@ -1,7 +1,7 @@
 use blockchainlib::*;
 
 fn main() {
-    let difficulty = 0x000fffffffffffffffffffffffffffff;
+    let difficulty = 0x000fffffffffffffffffffffffffff;
 
     let mut genesis_block = Block::new(
         0,
@@ -12,12 +12,12 @@ fn main() {
             inputs: vec![],
             outputs: vec![
                 transaction::Output {
-                    to_addr: "Alice".to_owned(),
+                    to_addr: "Deepto".to_owned(),
                     value: 50,
                 },
                 transaction::Output {
-                    to_addr: "Bob".to_owned(),
-                    value: 7,
+                    to_addr: "Friend".to_owned(),
+                    value: 10,
                 },
             ],
         }],
@@ -46,8 +46,8 @@ fn main() {
             Transaction {
                 inputs: vec![],
                 outputs: vec![transaction::Output {
-                    to_addr: "Chris".to_owned(),
-                    value: 536,
+                    to_addr: "Deepto".to_owned(),
+                    value: 100,
                 }],
             },
             Transaction {
@@ -55,12 +55,26 @@ fn main() {
                     blockchain.blocks[0].transactions[0].outputs[0].clone()],
                 outputs: vec![
                     transaction::Output {
-                        to_addr: "Alice".to_owned(),
-                        value: 36, //alice has 50 coins in total, sends 36 to herself, 12 to bob, 2 coins -fee
+                        to_addr: "Musk".to_owned(),
+                        value: 31, 
                     },
                     transaction::Output {
                         to_addr: "Bob".to_owned(),
                         value: 12,
+                    },
+                ],
+            },
+            Transaction {
+                inputs: vec![
+                    blockchain.blocks[0].transactions[0].outputs[1].clone()],
+                outputs: vec![
+                    transaction::Output {
+                        to_addr: "Alice".to_owned(),
+                        value: 1, 
+                    },
+                    transaction::Output {
+                        to_addr: "Bob".to_owned(),
+                        value: 1,
                     },
                 ],
             },
